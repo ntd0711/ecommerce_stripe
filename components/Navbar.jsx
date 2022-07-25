@@ -13,7 +13,7 @@ const Navbar = (props) => {
       <Link href="/">
         <a className="logo">
           <Image src={require('../public/favicon.ico')} height={50} width={50} alt="logo" />
-          <span>Headphones Store</span>
+          <span>MUREX</span>
         </a>
       </Link>
 
