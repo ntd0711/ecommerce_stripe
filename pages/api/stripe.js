@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         line_items: cartItems.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img
-            .replace('image-', 'https://cdn.sanity.io/images/lqwxkicb/production/')
+            .replace('image-', 'https://cdn.sanity.io/images/mq5wkgcd/production/')
             .replace('-webp', '.webp');
 
           return {
