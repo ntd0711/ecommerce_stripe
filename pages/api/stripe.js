@@ -1,15 +1,15 @@
 import Stripe from 'stripe';
 
-const stripe = new Stripe(
-  'sk_test_51KxWTEImKPfyMpcSNOL3DnPWLZhbShjyeG3CCxsBbtTwMRdy8oJyhUMyGadqRryEI01ofDo5CAuQUaeDJaqMdnNT00E8P8DhqP'
-);
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log(req.body.cartItems);
+    const { cartItems } = req.body;
+    const slug = cartItems[cartItems.length - 1]?.slug?.current || '';
     try {
       const params = {
-        line_items: req.body.cartItems.map((item) => {
+        line_items: cartItems.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img
             .replace('image-', 'https://cdn.sanity.io/images/lqwxkicb/production/')
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
         billing_address_collection: 'auto',
         shipping_options: [{ shipping_rate: 'shr_1KxWouImKPfyMpcSfkeF4j55' }],
         success_url: `${req.headers.origin}/success`,
-        cancel_url: `${req.headers.origin}/canceled`,
+        cancel_url: `${req.headers.origin}/product/${slug}`,
       };
       const session = await stripe.checkout.sessions.create(params);
 
