@@ -11,10 +11,7 @@ const Navbar = (props) => {
   return (
     <div className="navbar-container">
       <Link href="/">
-        <a className="logo">
-          <Image src={require('../public/favicon.ico')} height={50} width={50} alt="logo" />
-          <span>MUREX</span>
-        </a>
+        <a className="logo">NUNEZ</a>
       </Link>
 
       <button className="cart-icon" onClick={() => setShowCart(true)} type="button">
